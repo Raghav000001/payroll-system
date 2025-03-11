@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import Footer from '../comp/Footer'
 import  Testimonials  from '../comp/Testimonials'
+import { Header } from '../comp/Header'
 function Home() {
     const navigate=useNavigate()
   return (
     <> 
       <div className="min-h-screen flex flex-col">
          <div>
-            {/* todo= add menu bar here */}
+          <Header/>
          </div>
 
         <main className="flex-grow">
@@ -30,7 +31,7 @@ function Home() {
             </div>
           </section>
 
-          <section className='bg-black py-16'>
+          <section className='bg-gray-800 py-16'>
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Contact Form Side */}
