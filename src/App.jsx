@@ -9,7 +9,7 @@ const CreateAdmin = lazy(() => import("./pages/CreateAdmin"))
 const EmployeeRegistration = lazy(() => import("./pages/admin/EmployeeRegistration"))
 const Salary = lazy(() => import("./pages/employee/Salary"))
 const Attendence = lazy(() => import("./pages/employee/Attendence"))
-const AdminHome= lazy(()=> import('./pages/admin/AdminHome'))
+const AdminDashBoard= lazy(()=> import('./pages/admin/AdminDashBoard'))
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -24,7 +24,7 @@ function App() {
       <Route>
         <Route path='/' element={<Home />} />
         <Route path='/admin/login' element={<AdminLogin />} />
-        <Route path='/admin/home' element={<AdminHome />} />
+        <Route path='/admin/dashboard' element={<AdminDashBoard />} />
         <Route path='/create-admin' element={<CreateAdmin />} />
         <Route path='/admin/employee/registration' element={<EmployeeRegistration />} />
         <Route path='/employee/salary' element={<Salary />} />
