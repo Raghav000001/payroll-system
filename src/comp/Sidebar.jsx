@@ -16,7 +16,7 @@ function Sidebar() {
     <div className="flex flex-col h-0 flex-1 border-r border-gray-200 bg-white">
        
         <div>
-        <nav clasNames="flex-1  bg-white space-y-1  ">
+        <nav className="flex-1  bg-white space-y-1  ">
           {/* <!-- Dashboard --> */}
 
           <Link  to={'/admin/dashboard'} className="bg-indigo-50 text-indigo-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
@@ -35,12 +35,12 @@ function Sidebar() {
           </Link>
           
           {/* <!-- Attendance Management --> */}
-          <a href="#attendance" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+          <Link to={'/admin/manage-attendence'} className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
             <svg className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             Attendance Tracking
-          </a>
+          </Link>
           
           {/* <!-- Salary Management --> */}
           <a href="#salary" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">

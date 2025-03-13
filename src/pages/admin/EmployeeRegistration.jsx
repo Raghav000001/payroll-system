@@ -1,47 +1,73 @@
-import React, { useState } from 'react'
-import Sidebar from '../../comp/Sidebar'
+import React, { useState } from "react";
+import Sidebar from "../../comp/Sidebar";
+import { realtimeDb } from "../../firebase/firebase";
+import { push, ref } from "firebase/database";
 
 function EmployeeRegistration() {
   const [employeeData, setEmployeeData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    dateOfBirth: '',
-    address: '',
-    department: '',
-    position: '',
-    joiningDate: '',
-    salary: '',
-  })
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    dateOfBirth: "",
+    address: "",
+    department: "",
+    position: "",
+    joiningDate: "",
+    salary: "",
+  });
 
   const handleChange = (e) => {
     setEmployeeData({
       ...employeeData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log('Employee Data:', employeeData)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      //  storing data in firebase
+      const employeesDataRef = ref(realtimeDb, "employees");
+      await push(employeesDataRef, employeeData);
+      //clrear form
+      setEmployeeData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        dateOfBirth: "",
+        address: "",
+        department: "",
+        position: "",
+        joiningDate: "",
+        salary: "",
+      });
+      console.log("Employee Data:", employeeData);
+      alert("Employee Registered");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
-    <div className='flex'>
-      <Sidebar/>    
+    <div className="flex">
+      <Sidebar />
       <div className="h-screen w-5/6 p-4 bg-gray-300">
         <div className="h-full bg-white rounded-lg shadow-md p-4">
           <h2 className="text-xl font-bold mb-4 bg-blue-600 text-white p-2 rounded-md flex justify-center">
             Employee Registration Form
           </h2>
-          
-          <form onSubmit={handleSubmit} className="space-y-4 h-[calc(100%-80px)]">
+
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 h-[calc(100%-80px)]"
+          >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Form fields remain the same, just adjusted spacing classes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">First Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  First Name
+                </label>
                 <input
                   type="text"
                   name="firstName"
@@ -53,7 +79,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Last Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   name="lastName"
@@ -65,7 +93,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -77,7 +107,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone Number
+                </label>
                 <input
                   type="tel"
                   name="phone"
@@ -89,7 +121,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Date of Birth
+                </label>
                 <input
                   type="date"
                   name="dateOfBirth"
@@ -101,7 +135,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Department</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Department
+                </label>
                 <select
                   name="department"
                   value={employeeData.department}
@@ -119,7 +155,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Position</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Position
+                </label>
                 <input
                   type="text"
                   name="position"
@@ -131,7 +169,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Joining Date</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Joining Date
+                </label>
                 <input
                   type="date"
                   name="joiningDate"
@@ -143,7 +183,9 @@ function EmployeeRegistration() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Salary</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Salary
+                </label>
                 <input
                   type="number"
                   name="salary"
@@ -156,7 +198,9 @@ function EmployeeRegistration() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Address</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Address
+              </label>
               <textarea
                 name="address"
                 value={employeeData.address}
@@ -179,7 +223,7 @@ function EmployeeRegistration() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default EmployeeRegistration
+export default EmployeeRegistration;

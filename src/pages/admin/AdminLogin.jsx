@@ -33,7 +33,7 @@ function AdminLogin() {
             console.log("User Data:", userData)
             
             if (userData && userData.role === "superadmin") {
-                navigate("/admin/home")
+                navigate("/admin/dashboard")
             } else {
                 alert("You are not authorized to access this page")
                 await signOut(auth)
