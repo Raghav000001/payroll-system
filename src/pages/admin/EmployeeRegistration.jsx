@@ -4,6 +4,7 @@ import { realtimeDb } from "../../firebase/firebase";
 import { push, ref } from "firebase/database";
 
 function EmployeeRegistration() {
+
   const [employeeData, setEmployeeData] = useState({
     firstName: "",
     lastName: "",
@@ -28,7 +29,7 @@ function EmployeeRegistration() {
     e.preventDefault();
     try {
       //  storing data in firebase
-      const employeesDataRef = ref(realtimeDb, "employees");
+      const employeesDataRef = ref(realtimeDb, 'employees');
       await push(employeesDataRef, employeeData);
       //clrear form
       setEmployeeData({

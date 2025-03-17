@@ -8,9 +8,8 @@ const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"))
 const CreateAdmin = lazy(() => import("./pages/CreateAdmin"))
 const EmployeeRegistration = lazy(() => import("./pages/admin/EmployeeRegistration"))
 const Salary = lazy(() => import("./pages/employee/Salary"))
-const Attendence = lazy(() => import("./pages/employee/Attendence"))
+const   EmployeeAttendence = lazy(() => import("./pages/employee/EmployeeAttendence"))
 const AdminDashBoard= lazy(()=> import('./pages/admin/AdminDashBoard'))
-const ManageAttendence=lazy(()=> import('./pages/admin/ManageAttendence'))
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -24,13 +23,12 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path='/' element={<Home />} />
-        <Route path='/admin/login' element={<AdminLogin />} />
+        <Route path='/admin/login' element={<AdminLogin />} />        
+        <Route path='/employee/attendance' element={<EmployeeAttendence />} />        
         <Route path='/admin/dashboard' element={<AdminDashBoard />} />
-        <Route path='/admin/manage-attendence' element={<ManageAttendence/>} />
         <Route path='/create-admin' element={<CreateAdmin />} />
         <Route path='/admin/employee/registration' element={<EmployeeRegistration />} />
         <Route path='/employee/salary' element={<Salary />} />
-        <Route path='/employee/attendence' element={<Attendence />} />
       </Route>
     )
   )

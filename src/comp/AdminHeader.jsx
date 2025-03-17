@@ -6,7 +6,7 @@ function AdminHeader({children}) {
   return (
     <div className="flex min-h-screen">
       {/* Fixed Sidebar */}
-      <Sidebar/>
+      <Sidebar />
 
       {/* Main Content Area */}
       <div className="w-4/5 ml-auto">
