@@ -86,33 +86,42 @@ const EmployeeAttendence = () => {
   }
 
   // request leave
-  function requestLeave(e) {
-    e.preventDefault();
-    if (!selectedEmployee || !leaveStartDate || !leaveEndDate || !leaveReason) {
-      alert("Please fill all the fields");
-      return;
-    }
-    const leaveRef = ref(db, "leaveRequests");
-    push(leaveRef, {
-      employeeId: selectedEmployee,
-      employeeName:
-        employee.find((employee) => employee.id === selectedEmployee)?.name ||
-        "Unknown",
-      //  to match the employee nigga
-      startDate: leaveStartDate,
-      endDate: leaveEndDate,
-      reason: leaveReason,
-      status: "pending",
-      timeStamp: new Date().toISOString(),
-    });
-    alert("Leave request submitted successfully");
-
-    //reset form fields
-    setLeaveReason("");
-    setLeaveStartDate("");
-    setLeaveEndDate("");
-    setSelectedEmployee(null);
+function requestLeave(e) {
+  e.preventDefault();
+  console.log(selectedEmployee);
+  if (!selectedEmployee || !leaveStartDate || !leaveEndDate || !leaveReason) {
+    alert("Please fill all the fields");
+    return;
   }
+  
+  // Find the selected employee object from the employee array
+  const selectedEmpObj = employee.find(emp => emp.id === selectedEmployee);
+  
+  if (!selectedEmpObj) {
+    alert("Selected employee not found");
+    return;
+  }
+  
+  const employeeName = `${selectedEmpObj.firstName} ${selectedEmpObj.lastName}`;
+  
+  const leaveRef = ref(db, "leaveRequests");
+  push(leaveRef, {
+    employeeId: selectedEmployee,
+    employeeName: employeeName, 
+    startDate: leaveStartDate,
+    endDate: leaveEndDate,
+    reason: leaveReason,
+    status: "pending",
+    timeStamp: new Date().toISOString(),
+  });
+  alert("Leave request submitted successfully");
+
+  //reset form fields
+  setLeaveReason("");
+  setLeaveStartDate("");
+  setLeaveEndDate("");
+  setSelectedEmployee(null);
+}
 
   // approve or reject leave
   function updateLeaveStatus(leaveId, status) {
@@ -163,7 +172,12 @@ const EmployeeAttendence = () => {
       {/* Date selector */}
       <div className="mb-4">
         <label className="block mb-2">Select Date:</label>
-        <input type="date" className="border p-2 rounded" />
+        <input 
+          type="date" 
+          value={currentDate}
+          onChange={handleDateChange}
+          className="border p-2 rounded" 
+        />
       </div>
 
       {isadmin ? (
@@ -237,14 +251,15 @@ const EmployeeAttendence = () => {
             <h2 className="text-xl font-bold mb-4">Leave Requests</h2>
             {leaveRequests.length > 0 ? (
               <table className="w-full border-collapse">
-                <thead></thead>
-                <tr className="bg-gray-100">
-                  <th className="border p-2 text-left">Employee</th>
-                  <th className="border p-2 text-left">Period</th>
-                  <th className="border p-2 text-left">Reason</th>
-                  <th className="border p-2 text-left">Status</th>
-                  <th className="border p-2 text-left">Actions</th>
-                </tr>
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="border p-2 text-left">Employee</th>
+                    <th className="border p-2 text-left">Period</th>
+                    <th className="border p-2 text-left">Reason</th>
+                    <th className="border p-2 text-left">Status</th>
+                    <th className="border p-2 text-left">Actions</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {leaveRequests.map((leave) => (
                     <tr key={leave.id}>
